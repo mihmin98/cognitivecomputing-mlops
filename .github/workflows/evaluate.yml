@@ -60,3 +60,8 @@ jobs:
       - name: Print stats
         working-directory: ./master-branch
         run: cat train_result.csv
+
+      # Print stats
+      - name: Print evaluation results
+        working-directory: ./current-branch
+        run: python create_evaluation_summary.py "./train_result.csv" "../master-branch/train_result.csv" $GITHUB_STEP_SUMMARY
