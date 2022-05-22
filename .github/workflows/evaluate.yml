@@ -42,13 +42,13 @@ jobs:
           ref: master
 
       - name: Install pipenv packages
-        working-directory: ./current-branch
+        working-directory: ./master-branch
         run: pipenv install
 
       - name: Evaluate model
-        working-directory: ./current-branch
+        working-directory: ./master-branch
         run: pipenv run python model.py
 
       - name: Print stats
-        working-directory: ./current-branch
+        working-directory: ./master-branch
         run: cat train_result.csv
