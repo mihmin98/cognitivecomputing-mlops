@@ -33,10 +33,10 @@ if __name__ == "__main__":
         }
 
     delta_results = {
-        "accuracy": new_model_results["accuracy"] - baseline_model_results["accuracy"],
-        "precision": new_model_results["precision"] - baseline_model_results["precision"],
-        "recall": new_model_results["recall"] - baseline_model_results["recall"],
-        "f1": new_model_results["f1"] - baseline_model_results["f1"],
+        "accuracy": round(new_model_results["accuracy"] - baseline_model_results["accuracy"], 3),
+        "precision": round(new_model_results["precision"] - baseline_model_results["precision"], 3),
+        "recall": round(new_model_results["recall"] - baseline_model_results["recall"], 3),
+        "f1": round(new_model_results["f1"] - baseline_model_results["f1"], 3),
     }
 
     # markdown = "### Run results\n\
