@@ -32,7 +32,7 @@ jobs:
 
       - name: Evaluate new model
         working-directory: ./current-branch
-        run: pipenv run python model.py
+        run: pipenv run python model.py --skip-model
 
       - name: Print stats
         working-directory: ./current-branch
@@ -55,7 +55,7 @@ jobs:
 
       - name: Evaluate baseline model
         working-directory: ./master-branch
-        run: pipenv run python model.py
+        run: pipenv run python model.py --skip-model
 
       - name: Print stats
         working-directory: ./master-branch
