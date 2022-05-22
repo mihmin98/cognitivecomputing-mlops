@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        # name: Checkout current branch
+        # Checkout current branch
         with:
           path: current-branch
 
@@ -34,12 +34,21 @@ jobs:
         working-directory: ./current-branch
         run: cat train_result.csv
 
-
-
-      # - uses: actions/checkout@v3
-      #   # name: Checkout master branch
-      #   with:
-      #     path: master-branch
-      #     ref: master
-
       
+      - uses: actions/checkout@v3
+        # Checkout master branch
+        with:
+          path: master-branch
+          ref: master
+
+      - name: Install pipenv packages
+        working-directory: ./current-branch
+        run: pipenv install
+
+      - name: Evaluate model
+        working-directory: ./current-branch
+        run: pipenv run python model.py
+
+      - name: Print stats
+        working-directory: ./current-branch
+        run: cat train_result.csv
