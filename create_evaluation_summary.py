@@ -35,8 +35,8 @@ if __name__ == "__main__":
     markdown = "### Run results\n\
                 | Model | Accuracy | Precision | Recall | F1-Score |\n\
                 |-------|----------|-----------|--------|----------|\n\
-                | New | " + str(new_model_results["accuracy"]) + " | " + str(new_model_results["precision"]) + " | " + str(new_model_results["recall"]) + " | " + str(new_model_results["f1"]) + "\n\
-                | Baseline | " + str(baseline_model_results["accuracy"]) + " | " + str(baseline_model_results["precision"]) + " | " + str(baseline_model_results["recall"]) + " | " + str(baseline_model_results["f1"])
+                | New | " + str(new_model_results["accuracy"]) + " | " + str(new_model_results["precision"]) + " | " + str(new_model_results["recall"]) + " | " + str(new_model_results["f1"]) + " |\n\
+                | Baseline | " + str(baseline_model_results["accuracy"]) + " | " + str(baseline_model_results["precision"]) + " | " + str(baseline_model_results["recall"]) + " | " + str(baseline_model_results["f1"]) + " |"
 
     with open(destination_file, 'w') as f:
         f.write(markdown)
