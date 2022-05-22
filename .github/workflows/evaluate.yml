@@ -62,6 +62,11 @@ jobs:
         run: cat train_result.csv
 
       # Print stats
-      - name: Print evaluation results
+      - name: Create evaluation results
         working-directory: ./current-branch
-        run: python create_evaluation_summary.py "./train_result.csv" "../master-branch/train_result.csv" $GITHUB_STEP_SUMMARY
+        run: python create_evaluation_summary.py "./train_result.csv" "../master-branch/train_result.csv" markdown_result.md
+
+      - name: Write evaluation summary
+        working-directory: ./current-branch
+        run: cat markdown_result.md >> $GITHUB_STEP_SUMMARY
+
