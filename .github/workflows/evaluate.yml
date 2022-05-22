@@ -21,15 +21,14 @@ jobs:
 
       - name: Install pipenv
         uses: dschep/install-pipenv-action@v1
-        working-directory: ./current-branch
 
       - name: Install pipenv packages
-        run: pipenv install
         working-directory: ./current-branch
+        run: pipenv install
 
       - name: Evaluate model
-        run: python model.py
         working-directory: ./current-branch
+        run: python model.py
 
       # - name: Print stats
 
