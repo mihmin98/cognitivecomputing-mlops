@@ -14,10 +14,10 @@ jobs:
         with:
           path: current-branch
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.10.4
         uses: actions/setup-python@v3
         with:
-          python-version: 3.10
+          python-version: 3.10.4
 
       - name: Install pipenv
         uses: dschep/install-pipenv-action@v1
