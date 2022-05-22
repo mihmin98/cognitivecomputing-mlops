@@ -1,6 +1,9 @@
+from ast import arg
 import pandas as pd
 import numpy as np
 import pickle
+import os
+import argparse
 
 from sklearn.svm import SVC
 from sklearn.model_selection import KFold
@@ -8,6 +11,19 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.preprocessing import LabelEncoder
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--skip-model", default=False, required=False, action="store_true")
+
+    args = parser.parse_args()
+
+    print(args)
+
+    if not args.skip_model:
+        # Check if dest dir exists
+        print("Current path: ", os.getcwd())
+        if not os.path.exists("./model"):
+            os.makedirs("./model")
+
     dataset = pd.read_csv("Iris.csv")
 
     X = dataset[["SepalLengthCm", "SepalWidthCm"]].to_numpy()
@@ -16,8 +32,9 @@ if __name__ == "__main__":
     label_encoder = LabelEncoder()
     y = label_encoder.fit_transform(y)
 
-    with open("model/label_encoder.pickle", "wb") as f:
-        pickle.dump(label_encoder, f)
+    if not args.skip_model:
+        with open("model/label_encoder.pickle", "wb") as f:
+            pickle.dump(label_encoder, f)
 
     kf = KFold(shuffle=True, n_splits=10)
 
@@ -37,9 +54,9 @@ if __name__ == "__main__":
         y_pred = svc.predict(X_test)
 
         train_acc_list.append(accuracy_score(y_test, y_pred))
-        train_precision_list.append(precision_score(y_test, y_pred, average='macro'))
-        train_recall_list.append(recall_score(y_test, y_pred, average='macro'))
-        train_f1_list.append(f1_score(y_test, y_pred, average='macro'))
+        train_precision_list.append(precision_score(y_test, y_pred, average="macro"))
+        train_recall_list.append(recall_score(y_test, y_pred, average="macro"))
+        train_f1_list.append(f1_score(y_test, y_pred, average="macro"))
 
     # Print/write train metrics
     train_acc = round(np.mean(train_acc_list), 3)
@@ -56,11 +73,12 @@ if __name__ == "__main__":
     result_metrics = [[train_acc, train_precision, train_recall, train_f1]]
     result_df = pd.DataFrame(result_metrics)
 
-    result_df.to_csv('train_result.csv', index=False, header=False)
+    result_df.to_csv("train_result.csv", index=False, header=False)
 
     # Train the model on the entire dataset
-    svc = SVC()
-    svc.fit(X, y)
+    if not args.skip_model:
+        svc = SVC()
+        svc.fit(X, y)
 
-    with open("model/model.pickle", "wb") as f:
-        pickle.dump(svc, f)
+        with open("model/model.pickle", "wb") as f:
+            pickle.dump(svc, f)
