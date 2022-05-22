@@ -19,7 +19,7 @@ if __name__ == "__main__":
     with open("model/label_encoder.pickle", "wb") as f:
         pickle.dump(label_encoder, f)
 
-    kf = KFold(shuffle=True, n_splits=10)
+    kf = KFold(shuffle=True, n_splits=5)
 
     train_acc_list = []
     train_precision_list = []
