@@ -26,7 +26,7 @@ jobs:
         working-directory: ./current-branch
         run: pipenv install
 
-      - name: Evaluate model
+      - name: Evaluate new model
         working-directory: ./current-branch
         run: pipenv run python model.py
 
@@ -45,7 +45,7 @@ jobs:
         working-directory: ./master-branch
         run: pipenv install
 
-      - name: Evaluate model
+      - name: Evaluate baseline model
         working-directory: ./master-branch
         run: pipenv run python model.py
 

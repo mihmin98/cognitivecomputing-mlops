@@ -10,6 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 
 if __name__ == "__main__":
     # Check if dest dir exists
+    print('Current path: ', os.getcwd())
     if not os.path.exists('./model'):
         os.makedirs('./model')
 
