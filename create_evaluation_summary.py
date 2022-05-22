@@ -32,16 +32,24 @@ if __name__ == "__main__":
             "f1": float(split_line[3]),
         }
 
+    delta_results = {
+        "accuracy": new_model_results["accuracy"] - baseline_model_results["accuracy"],
+        "precision": new_model_results["precision"] - baseline_model_results["precision"],
+        "recall": new_model_results["recall"] - baseline_model_results["recall"],
+        "f1": new_model_results["f1"] - baseline_model_results["f1"],
+    }
+
     # markdown = "### Run results\n\
     #             | Model | Accuracy | Precision | Recall | F1-Score |\n\
     #             |-------|----------|-----------|--------|----------|\n\
     #             | New | " + str(new_model_results["accuracy"]) + " | " + str(new_model_results["precision"]) + " | " + str(new_model_results["recall"]) + " | " + str(new_model_results["f1"]) + " |\n\
     #             | Baseline | " + str(baseline_model_results["accuracy"]) + " | " + str(baseline_model_results["precision"]) + " | " + str(baseline_model_results["recall"]) + " | " + str(baseline_model_results["f1"]) + " |"
     markdown = "### Run results\n\n"
-    markdown += '| Model | Accuracy | Precision | Recall | F1-Score |\n'
-    markdown += '|-------|----------|-----------|--------|----------|\n'
+    markdown += '| Category | Accuracy | Precision | Recall | F1-Score |\n'
+    markdown += '|----------|----------|-----------|--------|----------|\n'
     markdown += "| New | " + str(new_model_results["accuracy"]) + " | " + str(new_model_results["precision"]) + " | " + str(new_model_results["recall"]) + " | " + str(new_model_results["f1"]) + " |\n"
-    markdown += "| Baseline | " + str(baseline_model_results["accuracy"]) + " | " + str(baseline_model_results["precision"]) + " | " + str(baseline_model_results["recall"]) + " | " + str(baseline_model_results["f1"]) + " |"
+    markdown += "| Baseline | " + str(baseline_model_results["accuracy"]) + " | " + str(baseline_model_results["precision"]) + " | " + str(baseline_model_results["recall"]) + " | " + str(baseline_model_results["f1"]) + " |\n"
+    markdown += "| Change | " + str(delta_results["accuracy"]) + " | " + str(delta_results["precision"]) + " | " + str(delta_results["recall"]) + " | " + str(delta_results["f1"]) + " |\n"
 
     with open(destination_file, 'w') as f:
         f.write(markdown)
