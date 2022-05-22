@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 from sklearn.svm import SVC
 from sklearn.model_selection import KFold
@@ -8,6 +9,10 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.preprocessing import LabelEncoder
 
 if __name__ == "__main__":
+    # Check if dest dir exists
+    if not os.path.exists('./model'):
+        os.makedirs('./model')
+
     dataset = pd.read_csv("Iris.csv")
 
     X = dataset[["SepalLengthCm", "SepalWidthCm"]].to_numpy()
