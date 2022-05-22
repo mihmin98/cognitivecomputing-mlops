@@ -28,9 +28,12 @@ jobs:
 
       - name: Evaluate model
         working-directory: ./current-branch
-        run: python model.py
+        run: pipenv run python model.py
 
-      # - name: Print stats
+      - name: Print stats
+        working-directory: ./current-branch
+        run: cat train_result.csv
+
 
 
       # - uses: actions/checkout@v3
