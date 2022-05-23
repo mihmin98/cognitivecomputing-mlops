@@ -10,28 +10,77 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        # name: Checkout current branch
+        # Checkout current branch
         with:
           path: current-branch
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.10.4
         uses: actions/setup-python@v3
         with:
-          python-version: 3.10
+          python-version: 3.10.4
 
       - name: Install pipenv
         uses: dschep/install-pipenv-action@v1
 
-      - name: Evaluate model
-        run: python model.py
+      - name: Set pipfile
+        working-directory: ./current-branch
+        run: bash set_pipfile_env.sh ml
 
-      # - name: Print stats
+      - name: Install pipenv packages
+        working-directory: ./current-branch
+        run: pipenv install
 
+      - name: Create model folder
+        working-directory: ./current-branch
+        run: mkdir -p model
 
-      # - uses: actions/checkout@v3
-      #   # name: Checkout master branch
-      #   with:
-      #     path: master-branch
-      #     ref: master
+      - name: Evaluate new model
+        working-directory: ./current-branch
+        run: pipenv run python model.py --skip-model
+
+      - name: Print stats
+        working-directory: ./current-branch
+        run: cat train_result.csv
 
       
+      - uses: actions/checkout@v3
+        # Checkout master branch
+        with:
+          path: master-branch
+          ref: master
+
+      - name: Set pipfile
+        working-directory: ./current-branch
+        run: bash set_pipfile_env.sh ml
+
+      - name: Install pipenv packages
+        working-directory: ./master-branch
+        run: pipenv install
+
+      - name: Create model folder
+        working-directory: ./current-branch
+        run: mkdir -p model
+
+      - name: Evaluate baseline model
+        working-directory: ./master-branch
+        run: pipenv run python model.py --skip-model
+
+      - name: Print stats
+        working-directory: ./master-branch
+        run: cat train_result.csv
+
+      # Print stats
+      - name: Create evaluation results
+        working-directory: ./current-branch
+        run: python create_evaluation_summary.py "./train_result.csv" "../master-branch/train_result.csv" markdown_result.md
+
+      - name: Write evaluation summary
+        working-directory: ./current-branch
+        run: cat markdown_result.md >> $GITHUB_STEP_SUMMARY
+
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: ./current-branch/markdown_result.md
