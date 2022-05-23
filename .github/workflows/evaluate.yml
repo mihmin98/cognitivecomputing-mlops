@@ -83,4 +83,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: $GITHUB_STEP_SUMMARY
+          path: ./current-branch/markdown_result.md
