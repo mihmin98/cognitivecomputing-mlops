@@ -78,3 +78,9 @@ jobs:
         working-directory: ./current-branch
         run: cat markdown_result.md >> $GITHUB_STEP_SUMMARY
 
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: $GITHUB_STEP_SUMMARY
