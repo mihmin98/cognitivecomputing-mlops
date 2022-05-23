@@ -29,11 +29,11 @@ async def test_get():
 async def get_prediction(request: PredictRequest):
     try:
         model = None
-        with open("../model/model.pickle", "rb") as f:
+        with open("model/model.pickle", "rb") as f:
             model = pickle.load(f)
 
         label_encoder = None
-        with open("../model/label_encoder.pickle", "rb") as f:
+        with open("model/label_encoder.pickle", "rb") as f:
             label_encoder = pickle.load(f)
 
         prediction = model.predict(request.get_as_array())
