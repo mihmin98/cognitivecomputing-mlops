@@ -12,8 +12,8 @@ class PredictRequest(BaseModel):
     PetalWidthCm: float
 
     def get_as_array(self):
-        # arr = np.array([self.SepalLengthCm, self.SepalWidthCm, self.PetalLengthCm, self.PetalWidthCm])
-        arr = np.array([self.SepalLengthCm, self.SepalWidthCm])
+        arr = np.array([self.SepalLengthCm, self.SepalWidthCm, self.PetalLengthCm, self.PetalWidthCm])
+        # arr = np.array([self.SepalLengthCm, self.SepalWidthCm])
         return arr.reshape(1, -1)
 
 
