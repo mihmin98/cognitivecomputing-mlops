@@ -8,6 +8,7 @@ numpy = "*"
 fastapi = "*"
 uvicorn = "*"
 pydantic = "*"
+sklearn = "*"
 
 [dev-packages]
 black = "*"
