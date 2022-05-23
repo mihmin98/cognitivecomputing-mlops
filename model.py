@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     dataset = pd.read_csv("Iris.csv")
 
-    X = dataset[["SepalLengthCm", "SepalWidthCm"]].to_numpy()
+    X = dataset[["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]].to_numpy()
     y = dataset["Species"].to_numpy()
 
     label_encoder = LabelEncoder()
